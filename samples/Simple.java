@@ -1,10 +1,17 @@
-package ca.uwaterloo.JCLCudaAPI;
-
 import java.util.ArrayList;
 
+import ca.uwaterloo.JCLCudaAPI.Buffer;
+import ca.uwaterloo.JCLCudaAPI.BufferHost;
+import ca.uwaterloo.JCLCudaAPI.Context;
+import ca.uwaterloo.JCLCudaAPI.Device;
+import ca.uwaterloo.JCLCudaAPI.Event;
+import ca.uwaterloo.JCLCudaAPI.Kernel;
+import ca.uwaterloo.JCLCudaAPI.Platform;
+import ca.uwaterloo.JCLCudaAPI.Program;
 import ca.uwaterloo.JCLCudaAPI.Program.BuildStatus;
+import ca.uwaterloo.JCLCudaAPI.Queue;
 
-public class Main {
+public class Simple {
 
   final static String cudaProgramString =
       "extern \"C\" __global__ void multiply(float *x, float *y, const int factor) { const int tid = threadIdx.x + blockDim.x*blockIdx.x; y[tid] = x[tid] * factor; }\n";
@@ -18,8 +25,12 @@ public class Main {
     final int size = 256 * 256;
     final int multiplyFactor = 2;
 
-    final String programSource =
-        System.getProperty("deviceType").equals("cuda") ? cudaProgramString : openclProgramString;
+    String programSource;
+    String requestedDeviceType = System.getProperty("deviceType");
+    if (requestedDeviceType == null || requestedDeviceType.equals("opencl"))
+      programSource = openclProgramString;
+    else
+      programSource = cudaProgramString;
 
     // Initializes the platform and device
     System.out.println("\n## Initializing...");

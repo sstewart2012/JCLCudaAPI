@@ -4,15 +4,16 @@ import java.util.List;
 
 public final class Program {
 
-  enum BuildStatus {
+  public enum BuildStatus {
     Success, Error, Invalid 
   }
   
   static {
-    if (System.getProperty("deviceType").equals("cuda"))
-      System.loadLibrary("JCLCudaAPI_cuda");
-    else
+    String type = System.getProperty("deviceType");
+    if (type == null || type.equals("opencl"))
       System.loadLibrary("JCLCudaAPI_opencl");
+    else
+      System.loadLibrary("JCLCudaAPI_cuda");
   }
   
   /** A handle (memory address) to the C++ object. */

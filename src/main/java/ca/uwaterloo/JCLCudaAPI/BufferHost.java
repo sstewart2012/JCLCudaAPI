@@ -8,10 +8,11 @@ public class BufferHost {
   private ByteBuffer bb;
   
   static {
-    if (System.getProperty("deviceType").equals("cuda"))
-      System.loadLibrary("JCLCudaAPI_cuda");
-    else
+    String type = System.getProperty("deviceType");
+    if (type == null || type.equals("opencl"))
       System.loadLibrary("JCLCudaAPI_opencl");
+    else
+      System.loadLibrary("JCLCudaAPI_cuda");
   }
 
   /** A handle (memory address) to the C++ object. */
@@ -21,7 +22,6 @@ public class BufferHost {
     init(context, size);
     bb = getByteBuffer();
     bb.order(ByteOrder.nativeOrder());
-    System.out.println(bb.asFloatBuffer().get(0));
   }
   
   private native void init(final Context context, final long size);
