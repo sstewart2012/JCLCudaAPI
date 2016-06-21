@@ -9,6 +9,7 @@ using namespace std;
 
 typedef std::vector<size_t> IntRange;
 typedef std::vector<std::string> StringRange;
+typedef std::vector<std::size_t> SizetRange;
 
 typedef vector<string> StringVec;
 typedef vector<int> IntVec;
@@ -25,6 +26,16 @@ inline IntRange toIntRange(JNIEnv *env, jintArray array) {
   IntRange range;
   jsize length = env->GetArrayLength(array);
   int *tmp = env->GetIntArrayElements(array, nullptr);
+  for (int i = 0; i < length; ++i) {
+    range.push_back((size_t) tmp[i]);
+  }
+  return range;
+}
+
+inline SizetRange toSizetRange(JNIEnv *env, jlongArray array) {
+  SizetRange range;
+  jsize length = env->GetArrayLength(array);
+  long *tmp = env->GetLongArrayElements(array, nullptr);
   for (int i = 0; i < length; ++i) {
     range.push_back((size_t) tmp[i]);
   }

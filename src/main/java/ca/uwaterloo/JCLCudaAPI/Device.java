@@ -2,40 +2,61 @@ package ca.uwaterloo.JCLCudaAPI;
 
 import java.util.List;
 
-public interface Device {
+public final class Device {
 
-  String version();
+  static {
+    if (System.getProperty("deviceType").equals("cuda"))
+      System.loadLibrary("JCLCudaAPI_cuda");
+    else
+      System.loadLibrary("JCLCudaAPI_opencl");
+  }
+  
+  /** A handle (memory address) to the C++ object. */
+  private long nativeHandle;
+  
+  public Device(final Platform platform, final int deviceId) {
+    init(platform, deviceId);
+  }
+  
+  private native void init(final Platform platform, final int deviceId);
+  
+  public native String version();
 
-  String vendor();
+  public native String vendor();
 
-  String name();
+  public native String name();
 
-  String type();
+  public native String type();
 
-  long maxWorkGroupSize();
+  public native long maxWorkGroupSize();
 
-  long maxWorkItemDimensions();
+  public native long maxWorkItemDimensions();
 
-  List<Integer> maxWorkItemSizes();
+  public native List<Integer> maxWorkItemSizes();
 
-  long localMemSize();
+  public native long localMemSize();
 
-  String capabilities();
+  public native String capabilities();
 
-  long coreClock();
+  public native long coreClock();
 
-  long computeUnits();
+  public native long computeUnits();
 
-  long memorySize();
+  public native long memorySize();
 
-  long maxAllocSize();
+  public native long maxAllocSize();
 
-  long memoryClock();
+  public native long memoryClock();
 
-  long memoryBusWidth();
+  public native long memoryBusWidth();
 
-  boolean isLocalMemoryValid(long localMemUsage);
+  public native boolean isLocalMemoryValid(final long localMemUsage);
 
-  boolean isThreadConfigValid(List<Long> local);
+  public native boolean isThreadConfigValid(final List<Long> local);
+
+  @Override
+  public String toString() {
+    return "CudaDevice [nativeHandle=" + nativeHandle + "]";
+  }
 
 }

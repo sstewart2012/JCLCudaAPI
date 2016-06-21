@@ -2,15 +2,41 @@ package ca.uwaterloo.JCLCudaAPI;
 
 import java.util.List;
 
-public interface Kernel {
+public class Kernel {
 
-  void setArgument();
+  static {
+    if (System.getProperty("deviceType").equals("cuda"))
+      System.loadLibrary("JCLCudaAPI_cuda");
+    else
+      System.loadLibrary("JCLCudaAPI_opencl");
+  }
+
+  /** A handle (memory address) to the C++ object. */
+  private long nativeHandle;
   
-  long localMemUsage(Device d);
+  public Kernel(final Program program, final String name) {
+    init(program, name);
+  }
   
-  void launch(Queue queue, long[] global, long[] local, Event e);
+  private native void init(Program program, String name);
+
+  public native void setArgument(final long index, final Buffer buffer);
+
+  public native void setArgument(long index, int val);
+
+  public native void setArgument(long index, float val);
   
-  void launch(Queue queue, long[] global, long[] local, Event e, List<Event> waitForEvents);
+  public native void setArgument(long index, double val);
   
-  Function getFunction();
+  public native long localMemUsage(Device d);
+
+  public native void launch(Queue queue, long[] global, long[] local, Event e);
+
+  public native void launch(Queue queue, long[] global, long[] local, Event e, List<Event> waitForEvents);
+
+  @Override
+  public String toString() {
+    return "CudaKernel [nativeHandle=" + nativeHandle + "]";
+  }
+
 }
