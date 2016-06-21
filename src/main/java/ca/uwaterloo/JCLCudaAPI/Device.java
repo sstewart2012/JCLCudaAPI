@@ -33,7 +33,7 @@ public final class Device {
 
   public native long maxWorkItemDimensions();
 
-  public native List<Integer> maxWorkItemSizes();
+  public native long[] maxWorkItemSizes();
 
   public native long localMemSize();
 

@@ -66,7 +66,7 @@ JNIEXPORT jlong JNICALL Java_ca_uwaterloo_JCLCudaAPI_Device_maxWorkItemDimension
 /*
  * Class:     ca_uwaterloo_JCLCudaAPI_Device
  * Method:    maxWorkItemSizes
- * Signature: ()Ljava/util/List;
+ * Signature: ()Ljava/util/ArrayList;
  */
 JNIEXPORT jobject JNICALL Java_ca_uwaterloo_JCLCudaAPI_Device_maxWorkItemSizes
   (JNIEnv *, jobject);
