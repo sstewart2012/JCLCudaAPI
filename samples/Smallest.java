@@ -68,7 +68,7 @@ public class Smallest {
     // Reads the results back to the host memory
     BufferHost h_result = new BufferHost(context, nbytes);
     d_C.read(queue, nbytes, h_result, 0L);
-    for (int i = 0; i < nelems; i++) {
+    for (int i = 0; i < 10 && i < nelems; i++) {
       System.out.println(h_result.data().asFloatBuffer().get(i));
     }
   }

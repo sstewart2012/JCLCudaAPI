@@ -49,7 +49,7 @@ JNIEXPORT void JNICALL Java_ca_uwaterloo_JCLCudaAPI_Event_waitForCompletion
 }
 
 /********************************************************************************/
-// CudaPlatform
+// Platform
 /********************************************************************************/
 JNIEXPORT void JNICALL Java_ca_uwaterloo_JCLCudaAPI_Platform_init
   (JNIEnv *env, jobject obj, jint platform_id)
@@ -62,10 +62,11 @@ JNIEXPORT jint JNICALL Java_ca_uwaterloo_JCLCudaAPI_Platform_numDevices
   (JNIEnv *env, jobject obj)
 {
 	Platform *p = getHandle<Platform>(env, obj);
+    return (jint)p->NumDevices();
 }
 
 /********************************************************************************/
-// CudaDevice
+// Device
 /********************************************************************************/
 JNIEXPORT void JNICALL Java_ca_uwaterloo_JCLCudaAPI_Device_init
   (JNIEnv *env, jobject obj, jobject platform, jint device_id)
@@ -251,7 +252,7 @@ JNIEXPORT jint JNICALL Java_ca_uwaterloo_JCLCudaAPI_Program_build_1native
 	Program *p = getHandle<Program>(env, obj);
 	vector<string> elems = listToStringVector(env, list_options);
 	BuildStatus status = p->Build(*d, elems);
-	
+
 	if (status == BuildStatus::kSuccess)
 		return (jint)0;
 	else if (status == BuildStatus::kError)
@@ -402,7 +403,7 @@ JNIEXPORT void JNICALL Java_ca_uwaterloo_JCLCudaAPI_Buffer_writeAsync
 	Queue *q = getHandle<Queue>(env, queue);
 	BufferHost<unsigned char> *h_buf = getHandle<BufferHost<unsigned char>>(env, host);
 	Buffer<unsigned char> *b = getHandle<Buffer<unsigned char>>(env, obj);
-	b->WriteAsync(*q, (size_t)size, *h_buf, (size_t)offset);	
+	b->WriteAsync(*q, (size_t)size, *h_buf, (size_t)offset);
 }
 
 JNIEXPORT void JNICALL Java_ca_uwaterloo_JCLCudaAPI_Buffer_write
@@ -420,7 +421,7 @@ JNIEXPORT void JNICALL Java_ca_uwaterloo_JCLCudaAPI_Buffer_copyToAsync
 	Queue *q = getHandle<Queue>(env, queue);
 	Buffer<unsigned char> *h_buf = getHandle<Buffer<unsigned char>>(env, dst);
 	Buffer<unsigned char> *b = getHandle<Buffer<unsigned char>>(env, obj);
-	b->CopyToAsync(*q, (size_t)size, *h_buf);	
+	b->CopyToAsync(*q, (size_t)size, *h_buf);
 }
 
 JNIEXPORT void JNICALL Java_ca_uwaterloo_JCLCudaAPI_Buffer_copyTo

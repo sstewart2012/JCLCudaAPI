@@ -20,6 +20,7 @@ public class Simple {
       "__kernel void multiply(__global float *x, __global float *y, const int factor) { const int tid = get_global_id(0); y[tid] = x[tid] * factor; }\n";
 
   public static void main(String[] args) {
+    final int workgroupSize = 128; // # of threads per workgroup
     final int platformId = 0;
     final int deviceId = 0;
     final int size = 256 * 256;
@@ -82,7 +83,6 @@ public class Simple {
 
     // Creates a 1D thread configuration ith thread-blocks/workgroups of 256 threads and a total
     // number of threads equal to the number of elements in the input/output vectors.
-    final long workgroupSize = 256;
     final long[] global = {size};
     final long[] local = {workgroupSize};
 
