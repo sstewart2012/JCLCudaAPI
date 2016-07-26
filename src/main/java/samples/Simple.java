@@ -38,7 +38,7 @@ public class Simple {
     // Initializes the platform and device
     System.out.println("\n## Initializing...");
     final Platform platform = new Platform(platformId);
-    final Device device = new Device((Platform) platform, deviceId);
+    final Device device = new Device(platform, deviceId);
     System.out.printf(" > Running on device '%s' of '%s'\n", device.name(), device.vendor());
 
     // Creates a new context and queue for the device
