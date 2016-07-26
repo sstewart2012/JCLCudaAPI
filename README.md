@@ -50,15 +50,13 @@ When selecting CUDA, it may be necessary to explicitly set the runtime environme
 * [NVIDIA CUDA Getting Started Guide for Linux] (http://docs.nvidia.com/cuda/cuda-getting-started-guide-for-linux/#environment-setup)
 * [NVIDIA CUDA Getting Started Guide for Mac OS X](http://docs.nvidia.com/cuda/cuda-getting-started-guide-for-mac-os-x/#install)
 
-In Eclipse, you will need to set the JVM arguments and environment variables via the settings for your run configuration.
-
-### Samples runs for OpenCL and CUDA
+### Sample runs for OpenCL and CUDA
 
 The following is sample output when specifically running the DeviceInfo sample for OpenCL. Note the use of `run-main` for selecting a specific main method:
 
 <pre>
 $ sbt "run-main samples.DeviceInfo" -Djava.library.path=lib
-[info] Loading global plugins from /Users/stevenstewart/.sbt/0.13/staging/7d805c9e726f3e7c816e/plugins
+[info] Loading global plugins from /Users/sts/.sbt/0.13/staging/7d805c9e726f3e7c816e/plugins
 [info] Set current project to JCLCudaAPI (in build file:/Users/stevenstewart/watform/eclipse/JCLCudaAPI/)
 [info] Running samples.DeviceInfo 
 
@@ -90,7 +88,7 @@ The following is sample output when specifically running the DeviceInfo sample f
 
 <pre>
 $ sbt "run-main samples.DeviceInfo" -Djava.library.path=lib -DdeviceType=cuda
-[info] Loading global plugins from /Users/stevenstewart/.sbt/0.13/staging/7d805c9e726f3e7c816e/plugins
+[info] Loading global plugins from /Users/sts/.sbt/0.13/staging/7d805c9e726f3e7c816e/plugins
 [info] Set current project to JCLCudaAPI (in build file:/Users/stevenstewart/watform/eclipse/JCLCudaAPI/)
 [info] Running samples.DeviceInfo 
 
@@ -120,7 +118,7 @@ $ sbt "run-main samples.DeviceInfo" -Djava.library.path=lib -DdeviceType=cuda
 
 ## Samples
 
-Sample Java programs that demonstrate using JCLCudaAPI are provided in the samples package. These [samples](https://github.com/sstewart2012/JCLCudaAPI/tree/master/samples) mimic some of the samples provided in the [CLCudaAPI](https://github.com/CNugteren/CLCudaAPI) repository.
+Sample Java programs that demonstrate using JCLCudaAPI are provided in the samples package. These [samples](https://github.com/sstewart2012/JCLCudaAPI/tree/master/src/main/java/samples) mimic some of the samples provided in the [CLCudaAPI](https://github.com/CNugteren/CLCudaAPI) repository.
 
 ## License
 
